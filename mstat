@@ -11,14 +11,22 @@ display_menu() {
 
 display_mem() {
 	echo "Memory usage:";
+	free -h | grep -v +;
 }
 
 display_disk() {
-	echo "DIsk usage:";
+	echo "Disk usage:";
+	df -h | grep -v "tmpfs" | grep -v "run" | grep -v "dev ";
 }
 
 display_network() {
+	hn=$(hostname);
+	iip=$(ip add | grep "inet" | grep -v "127.0" | grep -v "inet6" | awk "{print \$2}");
+	eip=$(wget -qO- http://ipecho.net/plain | xargs echo);
 	echo "Network usage:";
+	echo "Hostname: $hn";
+	echo "Internal IP: $iip";
+	echo "External IP: $eip";
 }
 
 echo "Welcome to MStat";
