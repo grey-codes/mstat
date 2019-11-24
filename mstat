@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "Welcome to MStat";
+while true; do
+	echo "Make your selection: ";
+	read sel;
+	if [ $sel -eq 5 ]; then
+		break;
+	fi;
+done;
