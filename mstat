@@ -4,7 +4,19 @@ echo "Welcome to MStat";
 while true; do
 	echo "Make your selection: ";
 	read sel;
-	if [ $sel -eq 5 ]; then
-		break;
-	fi;
+	case $sel in
+		1)
+			echo "You chose 1."
+			;;
+		2)
+			echo "You chose 2."
+			;;
+		-1)
+			echo "Quitting."
+			break;;
+		*)
+			echo "Invalid command."
+			exit 1
+			;;
+	esac;
 done;
