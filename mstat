@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#prompt function
 display_menu() {
 	echo "Make your selection:
 	1) Display memory usage
@@ -9,44 +10,59 @@ display_menu() {
 
 }
 
+#memory display function
 display_mem() {
 	echo "Memory usage:";
-	free -h | grep -v +;
+	free -h | grep -v +; #use free to get free memory but
+			#remove garbage lines
 }
 
 display_disk() {
 	echo "Disk usage:";
 	df -h | grep -v "tmpfs" | grep -v "run" | grep -v "dev ";
+	#get disk information but
+	#1. ignore tmpfs
+	#2. ignore run
+	#3. ignore dev mountpoint
 }
 
 display_network() {
-	hn=$(hostname);
+	hn=$(hostname); #get hostname store in $hn
 	iip=$(ip add | grep "inet" | grep -v "127.0" | grep -v "inet6" | awk "{print \$2}");
+	#use ip command to get ip info
+	#filter for ipv4 and ipv6
+	#ignore localhost
+	#ignore ipv6
+	#and use awk to filter only the ip + subnet
 	eip=$(wget -qO- http://ipecho.net/plain | xargs echo);
+	#use the ipecho.net external resource for public IP
+	#then display it all
 	echo "Network usage:";
 	echo "Hostname: $hn";
 	echo "Internal IP: $iip";
 	echo "External IP: $eip";
 }
 
+#start of program logic
 echo "Welcome to MStat";
+#main loop
 while true; do
-	display_menu;
-	read sel;
+	display_menu; #Prompt
+	read sel; #get input
 	case $sel in
-		1)
+		1) #memory
 			display_mem
 			;;
-		2)
+		2) #disk 
 			display_disk
 			;;
-		3)
+		3) #network
 			display_network
 			;;
-		4)
+		4) #quit
 			echo "Quitting."
 			break;;
-		*)
+		*) #default cases
 			echo "Invalid command."
 			exit 1
 			;;
