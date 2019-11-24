@@ -9,19 +9,31 @@ display_menu() {
 
 }
 
+display_mem() {
+	echo "Memory usage:";
+}
+
+display_disk() {
+	echo "DIsk usage:";
+}
+
+display_network() {
+	echo "Network usage:";
+}
+
 echo "Welcome to MStat";
 while true; do
 	display_menu;
 	read sel;
 	case $sel in
 		1)
-			echo "You chose 1."
+			display_mem
 			;;
 		2)
-			echo "You chose 2."
+			display_disk
 			;;
 		3)
-			echo "You chose 3."
+			display_network
 			;;
 		4)
 			echo "Quitting."
